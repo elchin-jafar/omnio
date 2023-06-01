@@ -18,6 +18,8 @@ import NoPageFacebook from './pages/Channels/NoPageFacebook';
 import SettingsLayout from './layouts/SettingsLayout';
 import Tenants from './pages/Settings/Tenants';
 import Login from './pages/Login';
+import AnalyticsLayout from './layouts/AnalyticsLayout';
+import Overview from './pages/Analytics/Overview';
 
 function App() {
   return (
@@ -40,15 +42,15 @@ function App() {
           <Route path="nopagefb" element={<NoPageFacebook />} />
         </Route>
         <Route path="/community" element={<h1>Community</h1>} />
-        <Route path="/statics" element={<h1>Statics</h1>}>
-          <Route path="overview" element={<h1>...</h1>} />
-          <Route path="activity" element={<h1>...</h1>} />
-          <Route path="mbox" element={<h1>...</h1>} />
-          <Route path="productivity" element={<h1>...</h1>} />
+        <Route path="/statics" element={<AnalyticsLayout />}>
+          <Route path="overview" element={<Overview />} />
+          <Route path="activity" element={<h1>activity</h1>} />
+          <Route path="mbox" element={<h1>mbox</h1>} />
+          <Route path="productivity" element={<h1>productivity</h1>} />
         </Route>
         <Route path="/settings" element={<SettingsLayout />}>
-          <Route path="user" element={<h1>...</h1>} />
-          <Route path="role" element={<h1>...</h1>} />
+          <Route path="user" element={<h1>user</h1>} />
+          <Route path="role" element={<h1>role</h1>} />
           <Route path="tenants" element={<Tenants />} />
         </Route>
         <Route path="/help" element={<h1>Help</h1>} />
