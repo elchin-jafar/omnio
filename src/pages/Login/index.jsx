@@ -58,6 +58,9 @@ function Login() {
       return;
     }
     dispatch(login());
+
+    localStorage.setItem('auth', true);
+
     navigate('/dashboard');
   }
 

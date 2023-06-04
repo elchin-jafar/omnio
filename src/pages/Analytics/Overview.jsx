@@ -8,6 +8,45 @@ import AnalyticsHeader from '../../components/Analytics/AnalyticsHeader';
 import ChartContainer from '../../components/Analytics/Overview/ChartContainer';
 
 function Overview() {
+  const data = [
+    [
+      'date',
+      'Facebook',
+      {
+        sourceColumn: 0,
+        role: 'annotation',
+        type: 'number',
+        calc: 'stringify',
+      },
+      'Email',
+      {
+        sourceColumn: 0,
+        role: 'annotation',
+        type: 'string',
+        calc: 'stringify',
+        color: '#fff',
+      },
+      'Whatsapp',
+      {
+        sourceColumn: 0,
+        role: 'annotation',
+        type: 'number',
+        calc: 'stringify',
+      },
+    ],
+    ['9 May', 40, 40, 20, 20, 60, 60],
+    ['10 May', 40, 40, 20, 20, 60, 60],
+    ['11 May', 40, 40, 20, 20, 60, 60],
+    ['12 May', 40, 40, 20, 20, 60, 60],
+    ['13 May', 40, 40, 20, 20, 60, 60],
+    ['14 May', 40, 40, 20, 20, 60, 60],
+    ['15 May', 40, 40, 20, 20, 60, 60],
+  ];
+  const options = {
+    bar: { groupWidth: '30%' },
+    isStacked: true,
+    colors: ['#7B94CC', '#63B0E3', '#70D77C'],
+  };
   return (
     <>
       <AnalyticsHeader title="overview" />
@@ -18,7 +57,12 @@ function Overview() {
       </Box>
       <ChartContainer receivedType />
       <ChartContainer completedType />
-      <Chart />
+      <Chart
+        chartType="ColumnChart"
+        data={data}
+        options={options}
+        height="400px"
+      />
     </>
   );
 }

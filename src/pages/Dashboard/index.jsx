@@ -5,7 +5,6 @@ import PieChart from '../../components/PieChart';
 import Mbox from '../../components/MboxWidget';
 import Agent from '../../components/Agent';
 import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 const mock = {
@@ -48,9 +47,10 @@ const mock = {
 export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
-  const login = useSelector((state) => state.login);
 
-  if (!login.isLogin) return <Navigate to="/login" />;
+  const auth = localStorage.getItem('auth');
+
+  if (auth === 'false') return <Navigate to="/Login" />;
 
   useEffect(() => {
     async function getData() {

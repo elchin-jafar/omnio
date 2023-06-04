@@ -23,18 +23,13 @@ function AnalyticsHeader({ title }) {
       label: 'Past 4 weeks',
     },
     {
-      value: 'past-6-months',
-      label: 'Past 6 months',
-    },
-    {
-      value: 'past-12-months',
-      label: 'Past 12 months',
-    },
-    {
       value: 'all',
       label: 'All',
     },
   ];
+  function handleSelectChange(e) {
+    console.log(e.target.value);
+  }
   return (
     <>
       <Box
@@ -51,6 +46,7 @@ function AnalyticsHeader({ title }) {
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <TextField
             select
+            onChange={handleSelectChange}
             defaultValue="today"
             InputProps={{
               startAdornment: (

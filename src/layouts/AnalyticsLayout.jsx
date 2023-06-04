@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const AnalyticsLayout = () => {
-  const login = useSelector((state) => state.login);
-
-  if (!login.isLogin) return <Navigate to="/login" />;
+  const isLogin = localStorage.getItem('auth');
+  if (isLogin === 'false') return <Navigate to="/Login" />;
   return (
     <div style={{ padding: '24px' }}>
       <Outlet />

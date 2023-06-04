@@ -32,7 +32,7 @@ export default function UserAvatar() {
 
   const handleLogout = () => {
     handleAvatarClose();
-    dispatch(logout());
+    localStorage.setItem('auth', false);
     navigate('/login');
   };
 
