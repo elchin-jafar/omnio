@@ -35,7 +35,7 @@ import Login from './pages/Login';
 import AnalyticsLayout, {
   loader as analyticsLoader,
 } from './layouts/AnalyticsLayout';
-import Overview from './pages/Analytics/Overview';
+import Overview from './pages/Analytics/Overview/Overview';
 
 function App() {
   const router = createBrowserRouter([

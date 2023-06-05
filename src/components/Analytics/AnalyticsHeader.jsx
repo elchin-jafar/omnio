@@ -8,7 +8,7 @@ import {
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import ExcelIcon from '../../assets/ExcelBtn.svg';
 
-function AnalyticsHeader({ title }) {
+function AnalyticsHeader({ title, onChange }) {
   const dateRange = [
     {
       value: 'today',
@@ -28,7 +28,7 @@ function AnalyticsHeader({ title }) {
     },
   ];
   function handleSelectChange(e) {
-    console.log(e.target.value);
+    onChange(e.target.value);
   }
   return (
     <>
