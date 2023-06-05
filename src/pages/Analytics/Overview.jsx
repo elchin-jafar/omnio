@@ -7,7 +7,16 @@ import AnalyticsHeader from '../../components/Analytics/AnalyticsHeader';
 
 import ChartContainer from '../../components/Analytics/Overview/ChartContainer';
 
+import { receivedChatsData } from './chartData';
+
 function Overview() {
+  console.log(
+    'receivedChatsData',
+    receivedChatsData.slice(
+      receivedChatsData.length - 7 - 7 * 2,
+      receivedChatsData.length - 7 * 2
+    )
+  );
   const data = [
     [
       'date',

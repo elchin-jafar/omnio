@@ -1,15 +1,8 @@
-import { useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, redirect } from 'react-router-dom';
 import Navbar from '../components/Profile/Navbar';
 import { CustomFlexbox } from '../components/Profile/StyledComponents';
 
 export default function ProfileLayout() {
-  useEffect(() => {
-    const isLogin = localStorage.getItem('auth');
-    if (isLogin === 'false') {
-      <Navigate to="/Login" />;
-    }
-  }, []);
   return (
     <CustomFlexbox>
       <Navbar />
@@ -17,3 +10,11 @@ export default function ProfileLayout() {
     </CustomFlexbox>
   );
 }
+
+export const loader = () => {
+  const auth = sessionStorage.getItem('auth');
+  if (!auth) {
+    return redirect('/');
+  }
+  return null;
+};

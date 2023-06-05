@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../app/store';
 import {
   Grid,
   IconButton,
@@ -30,7 +28,6 @@ function Login() {
   const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   function handleUserChange(e) {
     setUsername(e.target.value);
@@ -57,9 +54,8 @@ function Login() {
       setIsError(true);
       return;
     }
-    dispatch(login());
 
-    localStorage.setItem('auth', true);
+    sessionStorage.setItem('auth', 'true');
 
     navigate('/dashboard');
   }

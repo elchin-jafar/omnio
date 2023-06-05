@@ -5,7 +5,7 @@ import PieChart from '../../components/PieChart';
 import Mbox from '../../components/MboxWidget';
 import Agent from '../../components/Agent';
 import { Box } from '@mui/material';
-import { Navigate } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 
 const mock = {
   preview: {
@@ -48,10 +48,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
-  const auth = localStorage.getItem('auth');
-
-  if (auth === 'false') return <Navigate to="/Login" />;
-
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -87,3 +83,11 @@ export default function Dashboard() {
     </Box>
   );
 }
+
+export const loader = () => {
+  const auth = sessionStorage.getItem('auth');
+  if (!auth) {
+    return redirect('/');
+  }
+  return null;
+};

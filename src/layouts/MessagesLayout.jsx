@@ -1,15 +1,18 @@
-import { useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, redirect } from 'react-router-dom';
 import { ChatsContainer } from '../components/Mbox/StyledComponents';
 
 export default function MessagesLayout() {
-  useEffect(() => {
-    const isLogin = localStorage.getItem('auth');
-    if (!isLogin) return <Navigate to="/Login" />;
-  }, []);
   return (
     <ChatsContainer>
       <Outlet />
     </ChatsContainer>
   );
 }
+
+export const loader = () => {
+  const auth = sessionStorage.getItem('auth');
+  if (!auth) {
+    return redirect('/');
+  }
+  return null;
+};

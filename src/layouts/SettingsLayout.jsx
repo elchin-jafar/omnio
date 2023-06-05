@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Outlet, redirect } from 'react-router-dom';
 
 const SettingsLayout = () => {
-  useEffect(() => {
-    const isLogin = localStorage.getItem('auth');
-    if (!isLogin) return <Navigate to="/Login" />;
-  }, []);
   return (
     <div>
       <Outlet />
@@ -14,3 +10,11 @@ const SettingsLayout = () => {
 };
 
 export default SettingsLayout;
+
+export const loader = () => {
+  const auth = sessionStorage.getItem('auth');
+  if (!auth) {
+    return redirect('/');
+  }
+  return null;
+};
