@@ -1,8 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import EmptyStatistics from '../../../assets/EmptyStatistics.svg';
+import ChartComponent from './ChartComponent';
 
 function ChartContainer(props) {
-  const { receivedType, completedType } = props;
+  const { receivedType, completedType, filterDateRange, loading, data } = props;
+  console.log('data cygara', data);
   return (
     <>
       <Box
@@ -17,38 +19,46 @@ function ChartContainer(props) {
           {receivedType && 'Received chats'}
           {completedType && 'Completed chats'}
         </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        {loading && (
+          <Skeleton variant="rounded" height={300} animation="wave" />
+        )}
+        {!loading && !data && (
           <Box
             sx={{
-              width: '80px',
-              height: '80px',
-              backgroundColor: '#EEE3F4',
-              border: '2px solid hsl(270, 30%, 90%)',
               display: 'flex',
-              justifyContent: 'center',
+              flexDirection: 'column',
               alignItems: 'center',
-              borderRadius: '50%',
             }}
           >
-            <img src={EmptyStatistics} alt="statistics" />
+            <Box
+              sx={{
+                width: '80px',
+                height: '80px',
+                backgroundColor: '#EEE3F4',
+                border: '2px solid hsl(270, 30%, 90%)',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: '50%',
+              }}
+            >
+              <img src={EmptyStatistics} alt="statistics" />
+            </Box>
+            <Typography
+              sx={{
+                color: '#574B90',
+                fontSize: '14px',
+                fontWeight: 400,
+                marginTop: '12px',
+              }}
+            >
+              There is no data to show
+            </Typography>
           </Box>
-          <Typography
-            sx={{
-              color: '#574B90',
-              fontSize: '14px',
-              fontWeight: 400,
-              marginTop: '12px',
-            }}
-          >
-            There is no data to show
-          </Typography>
-        </Box>
+        )}
+        {!loading && data && (
+          <ChartComponent filterDateRange={filterDateRange} data={data} />
+        )}
       </Box>
     </>
   );

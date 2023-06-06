@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 
-function ChartComponent({ filterDateRange, data }) {
+function CompletedChartComponent({ filterDateRange, data }) {
   const [filteredData, setFilteredData] = useState(defaultData());
 
   useEffect(() => {
@@ -68,4 +68,4 @@ function ChartComponent({ filterDateRange, data }) {
   );
 }
 
-export default ChartComponent;
+export default CompletedChartComponent;

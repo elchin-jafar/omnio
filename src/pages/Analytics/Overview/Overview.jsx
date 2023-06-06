@@ -1,71 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 import AverageTime from '../../../components/Analytics/Overview/AverageTime';
 import AnalyticsHeader from '../../../components/Analytics/AnalyticsHeader';
 import ChartContainer from '../../../components/Analytics/Overview/ChartContainer';
-import ChartComponent from '../../../components/Analytics/Overview/ChartComponent';
+// import ChartComponent from '../../../components/Analytics/Overview/ChartComponent';
 
-import { receivedChatsData } from './chartData';
+import { overviewData } from './chartData';
+import { fetcher } from '../../../utils/functions';
 
 function Overview() {
   const [filterDateRange, setFilterDateRange] = useState('today');
-  console.log(
-    'receivedChatsData',
-    receivedChatsData.slice(
-      receivedChatsData.length - 7 - 7 * 2,
-      receivedChatsData.length - 7 * 2
-    )
-  );
-  const data = [
-    [
-      'date',
-      'Facebook',
-      {
-        sourceColumn: 0,
-        role: 'annotation',
-        type: 'number',
-        calc: 'stringify',
-      },
-      'Email',
-      {
-        sourceColumn: 0,
-        role: 'annotation',
-        type: 'string',
-        calc: 'stringify',
-        color: '#fff',
-      },
-      'Whatsapp',
-      {
-        sourceColumn: 0,
-        role: 'annotation',
-        type: 'number',
-        calc: 'stringify',
-      },
-    ],
-    ['9 May', 40, 40, 20, 20, 60, 60],
-    ['10 May', 40, 40, 20, 20, 60, 60],
-    ['11 May', 40, 40, 20, 20, 60, 60],
-    ['12 May', 40, 40, 20, 20, 60, 60],
-    ['13 May', 40, 40, 20, 20, 60, 60],
-    ['14 May', 40, 40, 20, 20, 60, 60],
-    ['15 May', 40, 40, 20, 20, 60, 60],
-  ];
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
 
   function handleSelectChange(data) {
     setFilterDateRange(data);
   }
+
+  useEffect(() => {
+    async function getData() {
+      setLoading(true);
+      const response = await fetcher(overviewData);
+      setData(response);
+      setLoading(false);
+    }
+    getData();
+  }, [filterDateRange]);
+  const { receivedChatsData, completedChatsData, avgTime } = data;
+  console.log('avgTime', avgTime);
+  console.log('receivedChatsData', receivedChatsData);
+  console.log('completedChatsData', completedChatsData);
   return (
     <>
       <AnalyticsHeader title="overview" onChange={handleSelectChange} />
-      <ChartComponent filterDateRange={filterDateRange} />
+      {/* <ChartComponent filterDateRange={filterDateRange} loading={loading} /> */}
 
       <Box sx={{ display: 'flex', gap: '20px' }}>
-        <AverageTime responseType />
-        <AverageTime completeType />
+        <AverageTime responseType data={avgTime?.response} loading={loading} />
+        <AverageTime completeType data={avgTime?.complete} loading={loading} />
       </Box>
-      <ChartContainer receivedType />
-      <ChartContainer completedType />
+      <ChartContainer
+        receivedType
+        filterDateRange={filterDateRange}
+        data={receivedChatsData}
+        loading={loading}
+      />
+      <ChartContainer
+        completedType
+        filterDateRange={filterDateRange}
+        data={completedChatsData}
+        loading={loading}
+      />
     </>
   );
 }

@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Skeleton } from '@mui/material';
 
 function AverageTime(props) {
-  const { responseType, completeType } = props;
+  const { responseType, completeType, data, loading } = props;
   return (
     <Box
       sx={{
@@ -32,7 +32,16 @@ function AverageTime(props) {
           lineHeight: '41px',
         }}
       >
-        0
+        {loading ? (
+          <Skeleton
+            variant="rounded"
+            animation="wave"
+            width={220}
+            height={60}
+          />
+        ) : (
+          data || 0
+        )}
       </Typography>
       <Typography
         sx={{
