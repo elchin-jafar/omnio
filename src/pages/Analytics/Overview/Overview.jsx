@@ -34,8 +34,6 @@ function Overview() {
   return (
     <>
       <AnalyticsHeader title="overview" onChange={handleSelectChange} />
-      {/* <ChartComponent filterDateRange={filterDateRange} loading={loading} /> */}
-
       <Box sx={{ display: 'flex', gap: '20px' }}>
         <AverageTime responseType data={avgTime?.response} loading={loading} />
         <AverageTime completeType data={avgTime?.complete} loading={loading} />

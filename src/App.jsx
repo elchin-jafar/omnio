@@ -162,46 +162,7 @@ function App() {
       ],
     },
   ]);
-  // return (
-  //   <Routes>
-  //     <Route path="/" element={<Navigate to="/login" />} />
-  //     <Route path="/login" element={<Login />} />
-  //     <Route path="" element={<Layout />}>
-  //       <Route
-  //         path="/dashboard"
-  //         element={<Dashboard />}
-  //         loader={dashboardLoader}
-  //       />
-  //       <Route path="/profile" element={<ProfileLayout />}>
-  //         <Route path="" element={<GeneralSettings />} />
-  //         <Route path="security" element={<SecuritySettings />} />
-  //       </Route>
-  //       <Route path="/messages" element={<MessagesLayout />}>
-  //         <Route path="active" element={<Messages />} />
-  //         <Route path="queue" element={<Messages />} />
-  //         <Route path="completed" element={<CompletedMessages />} />
-  //       </Route>
-  //       <Route path="/channels" element={<ChannelsLayout />}>
-  //         <Route path="" element={<ChannelMain />} />
-  //         <Route path="nopagefb" element={<NoPageFacebook />} />
-  //       </Route>
-  //       <Route path="/community" element={<h1>Community</h1>} />
-  //       <Route path="/statics" element={<AnalyticsLayout />}>
-  //         <Route path="overview" element={<Overview />} />
-  //         <Route path="activity" element={<h1>activity</h1>} />
-  //         <Route path="mbox" element={<h1>mbox</h1>} />
-  //         <Route path="productivity" element={<h1>productivity</h1>} />
-  //       </Route>
-  //       <Route path="/settings" element={<SettingsLayout />}>
-  //         <Route path="user" element={<h1>user</h1>} />
-  //         <Route path="role" element={<h1>role</h1>} />
-  //         <Route path="tenants" element={<Tenants />} />
-  //       </Route>
-  //       <Route path="/help" element={<h1>Help</h1>} />
-  //       <Route path="*" element={<h1>404</h1>} />
-  //     </Route>
-  //   </Routes>
-  // );
+
   return <RouterProvider router={router} />;
 }
 

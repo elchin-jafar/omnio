@@ -49,7 +49,7 @@ export const sidebarData = [
   {
     title: 'Statics',
     icon: <LegendToggleRoundedIcon />,
-    link: '/statics',
+    link: '/statics/overview',
     children: [
       {
         title: 'Overview',

@@ -20,7 +20,13 @@ function ChartContainer(props) {
           {completedType && 'Completed chats'}
         </Typography>
         {loading && (
-          <Skeleton variant="rounded" height={300} animation="wave" />
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <Skeleton variant="rounded" height={40} animation="wave" />
+            <Skeleton variant="rounded" height={40} animation="wave" />
+            <Skeleton variant="rounded" height={40} animation="wave" />
+            <Skeleton variant="rounded" height={40} animation="wave" />
+            <Skeleton variant="rounded" height={40} animation="wave" />
+          </Box>
         )}
         {!loading && !data && (
           <Box

@@ -21,6 +21,9 @@ function ChartComponent({ filterDateRange, data }) {
       if (filterDateRange === 'past-4-weeks') {
         setFilteredData([...defaultData(), ...data.slice(0, data.length)]);
       }
+      if (filterDateRange === 'all') {
+        setFilteredData([...defaultData(), ...data]);
+      }
     }
   }, [filterDateRange]);
 
