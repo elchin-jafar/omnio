@@ -36,6 +36,7 @@ import AnalyticsLayout, {
   loader as analyticsLoader,
 } from './layouts/AnalyticsLayout';
 import Overview from './pages/Analytics/Overview/Overview';
+import ActivityReport from './pages/Analytics/ActivityReport/ActivityReport';
 
 function App() {
   const router = createBrowserRouter([
@@ -120,7 +121,7 @@ function App() {
             },
             {
               path: 'activity',
-              element: <h2>activity</h2>,
+              element: <ActivityReport />,
             },
             {
               path: 'mbox',
