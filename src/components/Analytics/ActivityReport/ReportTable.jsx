@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,78 +9,28 @@ import TableRow from '@mui/material/TableRow';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
 
-function createData(
-  name,
-  role,
-  chats,
-  completedChats,
-  longTermChats,
-  avgResponseTime,
-  avgCompleteTime
-) {
-  return {
-    name,
-    role,
-    chats,
-    completedChats,
-    longTermChats,
-    avgResponseTime,
-    avgCompleteTime,
-  };
-}
-
-const rows = [
-  createData('Teddy Flood', 'Agent', 210, 205, 50, '5m 36s', '1h 45m 20s'),
-  createData(
-    'Dolores Abernathy',
-    'Agent',
-    215,
-    200,
-    160,
-    '6m 10s',
-    '2h 10m 4s'
-  ),
-  createData('Bernard Lowe', 'Supervisor', 180, 170, 30, '10m 22s', '1h 10s'),
-  createData('Maeve Millay', 'Agent', 180, 170, 100, '7m 3s', '2h 36m'),
-  createData('Hector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Vector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Gector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Mector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Zector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Qector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Aector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Sector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Pector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Uector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Tector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Rector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Wector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Bector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Nector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Mector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Cector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Xector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Dector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Fector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Jector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Kector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Lector Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Kektor Escaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Esxaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Esbaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Esqaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Eslaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Eswaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Essaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Esoaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Espaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Esuaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-  createData('Hector Esiaton', 'Agent', 150, 155, 50, '5m 36s', '1h 45m 20s'),
-];
-
-function ReportTable() {
+function ReportTable({ filterDateRange, data }) {
+  const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+    if (data) {
+      if (filterDateRange === 'today') {
+        setRows(data?.today);
+      }
+      if (filterDateRange === 'past-week') {
+        setRows(data['past-week']);
+      }
+      if (filterDateRange === 'past-4-weeks') {
+        setRows(data['past-4-weeks']);
+      }
+      if (filterDateRange === 'all') {
+        setRows(data.all);
+      }
+    }
+  }, [filterDateRange]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -106,7 +56,7 @@ function ReportTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {!rows && (
+          {rows?.length === 0 && (
             //empty row if data does not exist
             <TableRow>
               <TableCell></TableCell>

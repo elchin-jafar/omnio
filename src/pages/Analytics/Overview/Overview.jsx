@@ -26,10 +26,9 @@ function Overview() {
     }
     getData();
   }, [filterDateRange]);
+
   const { receivedChatsData, completedChatsData, avgTime } = data;
-  console.log('avgTime', avgTime);
-  console.log('receivedChatsData', receivedChatsData);
-  console.log('completedChatsData', completedChatsData);
+
   return (
     <>
       <AnalyticsHeader title="overview" onChange={handleSelectChange} />

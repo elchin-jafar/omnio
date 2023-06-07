@@ -1,26 +1,39 @@
+import { useEffect, useState } from 'react';
 import ReportTable from '../../../components/Analytics/ActivityReport/ReportTable';
 import AnalyticsHeader from '../../../components/Analytics/AnalyticsHeader';
 import ChartContainer from '../../../components/Analytics/ChartContainer';
 
+import { reportData } from './activity-report';
+import { fetcher } from '../../../utils/functions';
+
 function ActivityReport() {
-  const data = [
-    ['Dolores', 60, 60, 50, 50, 120, 120],
-    ['Bernardl', 40, 40, 20, 20, 60, 60],
-    ['Maeve', 40, 40, 20, 20, 60, 60],
-    ['Teddy', 40, 40, 20, 20, 60, 60],
-    ['Hector', 40, 40, 20, 20, 60, 60],
-    ['Peter', 40, 40, 20, 20, 60, 60],
-    ['Lawrence', 40, 40, 20, 20, 60, 60],
-  ];
+  const [filterDateRange, setFilterDateRange] = useState('today');
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  function handleSelectChange(data) {
+    setFilterDateRange(data);
+  }
+
+  useEffect(() => {
+    async function getData() {
+      setLoading(true);
+      const response = await fetcher(reportData);
+      setData(response);
+      setLoading(false);
+    }
+    getData();
+  }, [filterDateRange]);
+
   return (
     <>
-      <AnalyticsHeader title="Activity report" onChange={() => null} />
-      <ReportTable />
+      <AnalyticsHeader title="Activity report" onChange={handleSelectChange} />
+      <ReportTable filterDateRange={filterDateRange} data={data?.tableData} />
       <ChartContainer
         title="Completed chats"
         barChart
-        filterDateRange="today"
-        data={data}
+        filterDateRange={filterDateRange}
+        data={data?.barChartData}
       />
     </>
   );
