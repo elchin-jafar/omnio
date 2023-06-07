@@ -1,10 +1,11 @@
 import { Box, Skeleton, Typography } from '@mui/material';
-import EmptyStatistics from '../../../assets/EmptyStatistics.svg';
-import ChartComponent from './ChartComponent';
+import EmptyStatistics from '../../assets/EmptyStatistics.svg';
+import ColumnChart from './Overview/ColumnChart';
+import BarChart from './ActivityReport/BarChart';
 
 function ChartContainer(props) {
-  const { receivedType, completedType, filterDateRange, loading, data } = props;
-  console.log('data cygara', data);
+  const { title, columnChart, barChart, filterDateRange, loading, data } =
+    props;
   return (
     <>
       <Box
@@ -15,9 +16,10 @@ function ChartContainer(props) {
           marginTop: '20px',
         }}
       >
-        <Typography sx={{ marginBottom: '39px' }}>
-          {receivedType && 'Received chats'}
-          {completedType && 'Completed chats'}
+        <Typography
+          sx={{ marginBottom: '39px', fontSize: '18px', fontWeight: '500' }}
+        >
+          {title}
         </Typography>
         {loading && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -62,8 +64,11 @@ function ChartContainer(props) {
             </Typography>
           </Box>
         )}
-        {!loading && data && (
-          <ChartComponent filterDateRange={filterDateRange} data={data} />
+        {!loading && data && columnChart && (
+          <ColumnChart filterDateRange={filterDateRange} data={data} />
+        )}
+        {!loading && data && barChart && (
+          <BarChart filterDateRange={filterDateRange} data={data} />
         )}
       </Box>
     </>

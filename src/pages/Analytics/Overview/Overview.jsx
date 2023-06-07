@@ -3,8 +3,7 @@ import { Box } from '@mui/material';
 
 import AverageTime from '../../../components/Analytics/Overview/AverageTime';
 import AnalyticsHeader from '../../../components/Analytics/AnalyticsHeader';
-import ChartContainer from '../../../components/Analytics/Overview/ChartContainer';
-// import ChartComponent from '../../../components/Analytics/Overview/ChartComponent';
+import ChartContainer from '../../../components/Analytics/ChartContainer';
 
 import { overviewData } from './chartData';
 import { fetcher } from '../../../utils/functions';
@@ -39,13 +38,15 @@ function Overview() {
         <AverageTime completeType data={avgTime?.complete} loading={loading} />
       </Box>
       <ChartContainer
-        receivedType
+        title="Received chats"
+        columnChart
         filterDateRange={filterDateRange}
         data={receivedChatsData}
         loading={loading}
       />
       <ChartContainer
-        completedType
+        title="Completed chats"
+        columnChart
         filterDateRange={filterDateRange}
         data={completedChatsData}
         loading={loading}
