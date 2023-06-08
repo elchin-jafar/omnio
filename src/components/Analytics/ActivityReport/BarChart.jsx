@@ -67,7 +67,7 @@ function BarChart({ filterDateRange, data }) {
       chartType="BarChart"
       data={filteredData}
       width="100%"
-      height="400px"
+      height="600px"
       options={options}
     />
   );

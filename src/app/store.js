@@ -31,19 +31,12 @@ import {
   changeStatus,
 } from '../features/slices/profile/profileSlice';
 
-import {
-  loginReducer,
-  login,
-  logout,
-} from '../features/slices/loginSlice/login-slice';
-
 export const store = configureStore({
   reducer: {
     facebook: facebookReducer,
     tenant: tenantReducer,
     mbox: mboxReducer,
     user: userReducer,
-    login: loginReducer,
   },
 });
 
@@ -67,6 +60,4 @@ export {
   removeUserAvatar,
   addUserAvatar,
   changeStatus,
-  login,
-  logout,
 };

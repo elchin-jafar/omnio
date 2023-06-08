@@ -5,7 +5,6 @@ import Menu from '@mui/material/Menu';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeStatus } from '../../app/store';
-import { logout } from '../../app/store';
 import {
   StyledBadge,
   StyledMenuItem,

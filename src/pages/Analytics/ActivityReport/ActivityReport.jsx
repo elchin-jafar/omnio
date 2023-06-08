@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import ReportTable from '../../../components/Analytics/ActivityReport/ReportTable';
 import AnalyticsHeader from '../../../components/Analytics/AnalyticsHeader';
 import ChartContainer from '../../../components/Analytics/ChartContainer';
+import TableContainer from '../../../components/Analytics/ActivityReport/TableContainer';
 
 import { reportData } from './activity-report';
 import { fetcher } from '../../../utils/functions';
@@ -28,12 +28,17 @@ function ActivityReport() {
   return (
     <>
       <AnalyticsHeader title="Activity report" onChange={handleSelectChange} />
-      <ReportTable filterDateRange={filterDateRange} data={data?.tableData} />
+      <TableContainer
+        filterDateRange={filterDateRange}
+        data={data?.tableData}
+        loading={loading}
+      />
       <ChartContainer
         title="Completed chats"
         barChart
         filterDateRange={filterDateRange}
         data={data?.barChartData}
+        loading={loading}
       />
     </>
   );
