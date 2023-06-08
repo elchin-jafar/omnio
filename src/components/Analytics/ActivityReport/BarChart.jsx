@@ -7,22 +7,16 @@ function BarChart({ filterDateRange, data }) {
   useEffect(() => {
     if (data) {
       if (filterDateRange === 'today') {
-        setFilteredData([
-          ...defaultData(),
-          ...data.slice(data.length - 7 - 7 * 0, data.length - 7 * 0),
-        ]);
+        setFilteredData([...defaultData(), ...data.today]);
       }
       if (filterDateRange === 'past-week') {
-        setFilteredData([
-          ...defaultData(),
-          ...data.slice(data.length - 7 - 7 * 1, data.length - 7 * 1),
-        ]);
+        setFilteredData([...defaultData(), ...data['past-week']]);
       }
       if (filterDateRange === 'past-4-weeks') {
-        setFilteredData([...defaultData(), ...data.slice(0, data.length)]);
+        setFilteredData([...defaultData(), ...data['past-4-weeks']]);
       }
       if (filterDateRange === 'all') {
-        setFilteredData([...defaultData(), ...data]);
+        setFilteredData([...defaultData(), ...data.all]);
       }
     }
   }, [filterDateRange]);
