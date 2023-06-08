@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
+import { fetcher } from '../../../utils/functions';
+import { mboxRepData } from './mbox-report-data';
 import AnalyticsHeader from '../../../components/Analytics/AnalyticsHeader';
 import DataShowcase from '../../../components/Analytics/MboxReport/DataShowcase';
-import { mboxRepData } from './mbox-report-data';
 import UnStackedColumnChartContainer from '../../../components/Analytics/MboxReport/UnStackedColumnChartContainer';
-import { fetcher } from '../../../utils/functions';
 
 function MboxReport() {
   const [filterDateRange, setFilterDateRange] = useState('today');

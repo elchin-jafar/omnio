@@ -38,6 +38,7 @@ import AnalyticsLayout, {
 import Overview from './pages/Analytics/Overview/Overview';
 import ActivityReport from './pages/Analytics/ActivityReport/ActivityReport';
 import MboxReport from './pages/Analytics/MboxReport/MboxReport';
+import ProductivityReport from './pages/Analytics/ProductivityReport/ProductivityReport';
 
 function App() {
   const router = createBrowserRouter([
@@ -130,7 +131,7 @@ function App() {
             },
             {
               path: 'productivity',
-              element: <h2>productivity</h2>,
+              element: <ProductivityReport />,
             },
           ],
         },
