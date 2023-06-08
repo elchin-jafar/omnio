@@ -13,10 +13,6 @@ function Overview() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
-  function handleSelectChange(data) {
-    setFilterDateRange(data);
-  }
-
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -26,6 +22,10 @@ function Overview() {
     }
     getData();
   }, [filterDateRange]);
+
+  function handleSelectChange(data) {
+    setFilterDateRange(data);
+  }
 
   const { receivedChatsData, completedChatsData, avgTime } = data;
 
@@ -39,6 +39,7 @@ function Overview() {
       <ChartContainer
         title="Received chats"
         columnChart
+        stacked
         filterDateRange={filterDateRange}
         data={receivedChatsData}
         loading={loading}
@@ -46,6 +47,7 @@ function Overview() {
       <ChartContainer
         title="Completed chats"
         columnChart
+        stacked
         filterDateRange={filterDateRange}
         data={completedChatsData}
         loading={loading}

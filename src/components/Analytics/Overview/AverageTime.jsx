@@ -33,12 +33,7 @@ function AverageTime(props) {
         }}
       >
         {loading ? (
-          <Skeleton
-            variant="rounded"
-            animation="wave"
-            width={220}
-            height={60}
-          />
+          <Skeleton variant="rounded" animation="wave" height={40} />
         ) : (
           data || 0
         )}

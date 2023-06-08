@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Chart } from 'react-google-charts';
 
-function ChartComponent({ filterDateRange, data, isStacked }) {
+function UnStackedColumnChart({ filterDateRange, data }) {
   const [filteredData, setFilteredData] = useState(defaultData());
 
   useEffect(() => {
@@ -26,49 +26,26 @@ function ChartComponent({ filterDateRange, data, isStacked }) {
       }
     }
   }, [filterDateRange]);
+  console.log('filteredData', filteredData);
 
   function defaultData() {
-    return [
-      [
-        'date',
-        'Facebook',
-        {
-          sourceColumn: 0,
-          role: 'annotation',
-          type: 'number',
-          calc: 'stringify',
-        },
-        'Email',
-        {
-          sourceColumn: 0,
-          role: 'annotation',
-          type: 'string',
-          calc: 'stringify',
-        },
-        'Whatsapp',
-        {
-          sourceColumn: 0,
-          role: 'annotation',
-          type: 'number',
-          calc: 'stringify',
-        },
-      ],
-    ];
+    return [['date', 'Received', 'Completed']];
   }
 
   const options = {
     bar: { groupWidth: '30%' },
-    isStacked: isStacked,
-    colors: ['#7B94CC', '#63B0E3', '#70D77C'],
+    colors: ['#29B6F6', '#66BB6A'],
+    legend: { position: 'bottom' },
   };
   return (
     <Chart
       chartType="ColumnChart"
       data={filteredData}
       options={options}
-      height="400px"
+      height={500}
+      width="100%"
     />
   );
 }
 
-export default ChartComponent;
+export default UnStackedColumnChart;

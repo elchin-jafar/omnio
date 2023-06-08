@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Grid,
+  Box,
   IconButton,
   Stack,
   Typography,
@@ -37,7 +38,8 @@ function Login() {
     setPassword(e.target.value);
   }
 
-  async function handleLogin() {
+  async function handleLogin(e) {
+    e.preventDefault();
     setIsLoading(true);
     const response = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
@@ -124,51 +126,53 @@ function Login() {
           </Typography>
         </Stack>
 
-        <Stack spacing={2.5}>
-          <TextField
-            label="Username"
-            size="small"
-            value={username}
-            onChange={handleUserChange}
-          />
-          <TextField
-            label="Password"
-            type={isPasswordShown ? 'text' : 'password'}
-            size="small"
-            value={password}
-            onChange={handlePassChange}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() =>
-                      setIsPasswordShown((prevState) => !prevState)
-                    }
-                  >
-                    {isPasswordShown ? (
-                      <VisibilityOffIcon />
-                    ) : (
-                      <VisibilityIcon />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Remember me"
-            sx={{ color: '#616161' }}
-          />
-          <Button
-            variant="contained"
-            sx={{ textTransform: 'capitalize' }}
-            onClick={handleLogin}
-            disabled={isLoading}
-          >
-            Login
-          </Button>
-        </Stack>
+        <form action="" onSubmit={handleLogin}>
+          <Stack spacing={2.5}>
+            <TextField
+              label="Username"
+              size="small"
+              value={username}
+              onChange={handleUserChange}
+            />
+            <TextField
+              label="Password"
+              type={isPasswordShown ? 'text' : 'password'}
+              size="small"
+              value={password}
+              onChange={handlePassChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() =>
+                        setIsPasswordShown((prevState) => !prevState)
+                      }
+                    >
+                      {isPasswordShown ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Remember me"
+              sx={{ color: '#616161' }}
+            />
+            <Button
+              variant="contained"
+              sx={{ textTransform: 'capitalize' }}
+              disabled={isLoading}
+              type="submit"
+            >
+              Login
+            </Button>
+          </Stack>
+        </form>
       </Grid>
       <Snackbar
         open={isError}

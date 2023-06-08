@@ -2,10 +2,18 @@ import { Box, Skeleton, Typography } from '@mui/material';
 import EmptyStatistics from '../../assets/EmptyStatistics.svg';
 import ColumnChart from './Overview/ColumnChart';
 import BarChart from './ActivityReport/BarChart';
+import ChartSkeleton from './ChartSkeleton';
 
 function ChartContainer(props) {
-  const { title, columnChart, barChart, filterDateRange, loading, data } =
-    props;
+  const {
+    title,
+    columnChart,
+    barChart,
+    stacked,
+    filterDateRange,
+    loading,
+    data,
+  } = props;
   return (
     <>
       <Box
@@ -21,15 +29,7 @@ function ChartContainer(props) {
         >
           {title}
         </Typography>
-        {loading && (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <Skeleton variant="rounded" height={40} animation="wave" />
-            <Skeleton variant="rounded" height={40} animation="wave" />
-            <Skeleton variant="rounded" height={40} animation="wave" />
-            <Skeleton variant="rounded" height={40} animation="wave" />
-            <Skeleton variant="rounded" height={40} animation="wave" />
-          </Box>
-        )}
+        {loading && <ChartSkeleton />}
         {!loading && !data && (
           <Box
             sx={{
@@ -65,7 +65,11 @@ function ChartContainer(props) {
           </Box>
         )}
         {!loading && data && columnChart && (
-          <ColumnChart filterDateRange={filterDateRange} data={data} />
+          <ColumnChart
+            filterDateRange={filterDateRange}
+            data={data}
+            isStacked={stacked}
+          />
         )}
         {!loading && data && barChart && (
           <BarChart filterDateRange={filterDateRange} data={data} />

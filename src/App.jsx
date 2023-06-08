@@ -37,6 +37,7 @@ import AnalyticsLayout, {
 } from './layouts/AnalyticsLayout';
 import Overview from './pages/Analytics/Overview/Overview';
 import ActivityReport from './pages/Analytics/ActivityReport/ActivityReport';
+import MboxReport from './pages/Analytics/MboxReport/MboxReport';
 
 function App() {
   const router = createBrowserRouter([
@@ -125,7 +126,7 @@ function App() {
             },
             {
               path: 'mbox',
-              element: <h1>mbox</h1>,
+              element: <MboxReport />,
             },
             {
               path: 'productivity',
