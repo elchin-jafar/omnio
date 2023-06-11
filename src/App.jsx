@@ -6,6 +6,7 @@ import {
   Navigate,
   createBrowserRouter,
   RouterProvider,
+  redirect,
 } from 'react-router-dom';
 
 import ProfileLayout, {
@@ -31,7 +32,7 @@ import SettingsLayout, {
   loader as settingsLoader,
 } from './layouts/SettingsLayout';
 import Tenants from './pages/Settings/Tenants';
-import Login from './pages/Login';
+import Login, { loader as loginLoader } from './pages/Login';
 import AnalyticsLayout, {
   loader as analyticsLoader,
 } from './layouts/AnalyticsLayout';
@@ -44,11 +45,18 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Navigate to="/login" />,
+      element: <></>,
+      loader: () => {
+        const localAuth = localStorage.getItem('auth');
+        const sessionAuth = sessionStorage.getItem('auth');
+        if (localAuth || sessionAuth) return redirect('/dashboard');
+        return redirect('/login');
+      },
     },
     {
       path: '/login',
       element: <Login />,
+      loader: loginLoader,
     },
     {
       path: '',

@@ -1,7 +1,8 @@
-import { Box, Skeleton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import EmptyStatistics from '../../assets/EmptyStatistics.svg';
 import ColumnChart from './Overview/ColumnChart';
 import BarChart from './ActivityReport/BarChart';
+import AreaChart from './ProductivityReport/AreaChart';
 import ChartSkeleton from './ChartSkeleton';
 
 function ChartContainer(props) {
@@ -9,10 +10,12 @@ function ChartContainer(props) {
     title,
     columnChart,
     barChart,
+    areaChart,
     stacked,
     filterDateRange,
     loading,
     data,
+    color,
   } = props;
   return (
     <>
@@ -73,6 +76,13 @@ function ChartContainer(props) {
         )}
         {!loading && data && barChart && (
           <BarChart filterDateRange={filterDateRange} data={data} />
+        )}
+        {!loading && data && areaChart && (
+          <AreaChart
+            filterDateRange={filterDateRange}
+            data={data}
+            color={color}
+          />
         )}
       </Box>
     </>

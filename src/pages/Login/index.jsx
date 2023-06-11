@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import {
   Grid,
-  Box,
   IconButton,
   Stack,
   Typography,
@@ -27,6 +26,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isRememberChecked, setIsRememberChecked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,6 +41,7 @@ function Login() {
   async function handleLogin(e) {
     e.preventDefault();
     setIsLoading(true);
+    console.log('isRememberChecked', isRememberChecked);
     const response = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,10 +57,13 @@ function Login() {
       setIsError(true);
       return;
     }
-
-    sessionStorage.setItem('auth', 'true');
-
-    navigate('/dashboard');
+    if (isRememberChecked) {
+      localStorage.setItem('auth', isRememberChecked);
+      navigate('/dashboard');
+    } else {
+      sessionStorage.setItem('auth', 'true');
+      navigate('/dashboard');
+    }
   }
 
   return (
@@ -159,6 +163,8 @@ function Login() {
               }}
             />
             <FormControlLabel
+              checked={isRememberChecked}
+              onChange={(e) => setIsRememberChecked(e.target.checked)}
               control={<Checkbox />}
               label="Remember me"
               sx={{ color: '#616161' }}
@@ -191,3 +197,10 @@ function Login() {
 }
 
 export default Login;
+
+export const loader = () => {
+  const sessionAuth = sessionStorage.getItem('auth');
+  const localAuth = localStorage.getItem('auth');
+  if (sessionAuth || localAuth) return redirect('/');
+  return null;
+};

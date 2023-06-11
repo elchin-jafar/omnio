@@ -1,39 +1,54 @@
-import Chart from 'react-google-charts';
+import { useState, useEffect } from 'react';
 import AnalyticsHeader from '../../../components/Analytics/AnalyticsHeader';
 import ChartContainer from '../../../components/Analytics/ChartContainer';
 import AverageTime from '../../../components/Analytics/Overview/AverageTime';
 import { Box } from '@mui/material';
+import { productivityReportData } from '../../../pages/Analytics/ProductivityReport/productivity-report-data';
+import { fetcher } from '../../../utils/functions';
 
 function ProductivityReport() {
-  const data = [
-    [
-      'date',
-      'time',
-      //   { sourceColumn: 0, role: 'interval', type: 'number', calc: 'stringify' },
-    ],
-    ['Jul 9', 1000],
-    ['Jul 10', 2000],
-    ['Jul 11', 500],
-    ['Jul 12', 3000],
-    ['Jul 13', 1500],
-    ['Jul 14', 1200],
-  ];
+  const [filterDateRange, setFilterDateRange] = useState('today');
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      setLoading(true);
+      const response = await fetcher(productivityReportData);
+      setData(response);
+      setLoading(false);
+    }
+    getData();
+  }, [filterDateRange]);
+
+  function handleSelectChange(data) {
+    setFilterDateRange(data);
+  }
+
+  const { avgTimes, chartData } = data;
   return (
     <>
-      <AnalyticsHeader title="Productivity report" onChange={() => null} />
+      <AnalyticsHeader
+        title="Productivity report"
+        onChange={handleSelectChange}
+      />
       <Box sx={{ display: 'flex', gap: '20px' }}>
         <AverageTime responseType data="25m 49s" loading={false} />
         <AverageTime completeType data="3h 41m 12s" loading={false} />
       </Box>
-      <ChartContainer />
-      <Chart
-        chartType="AreaChart"
-        width="100%"
-        height="400px"
-        data={data}
-        options={{
-          legend: 'none',
-        }}
+      <ChartContainer
+        title="Avg response time"
+        data={chartData}
+        areaChart
+        color="#29B6F6"
+        loading={loading}
+      />
+      <ChartContainer
+        title="Avg resolution time"
+        data={chartData}
+        areaChart
+        color="#66BB6A"
+        loading={loading}
       />
     </>
   );

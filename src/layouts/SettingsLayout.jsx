@@ -12,9 +12,8 @@ const SettingsLayout = () => {
 export default SettingsLayout;
 
 export const loader = () => {
-  const auth = sessionStorage.getItem('auth');
-  if (!auth) {
-    return redirect('/');
-  }
+  const sesstionAuth = sessionStorage.getItem('auth');
+  const localAuth = localStorage.getItem('auth');
+  if (!sesstionAuth && !localAuth) return redirect('/');
   return null;
 };
