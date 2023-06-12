@@ -18,7 +18,7 @@ function ActivityReport() {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      const response = await fetcher(reportData);
+      const response = await fetcher(reportData, 500);
       setData(response);
       setLoading(false);
     }

@@ -14,7 +14,7 @@ function MboxReport() {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      const response = await fetcher(mboxRepData);
+      const response = await fetcher(mboxRepData, 500);
       setData(response);
       setLoading(false);
     }

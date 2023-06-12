@@ -16,7 +16,7 @@ function Overview() {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      const response = await fetcher(overviewData);
+      const response = await fetcher(overviewData, 500);
       setData(response);
       setLoading(false);
     }

@@ -1,7 +1,15 @@
 import { Box, Typography, Skeleton } from '@mui/material';
 
 function AverageTime(props) {
-  const { responseType, completeType, data, loading } = props;
+  const {
+    responseType,
+    completeType,
+    data,
+    loading,
+    withArea,
+    filterDateRange,
+  } = props;
+
   return (
     <Box
       sx={{
@@ -23,21 +31,57 @@ function AverageTime(props) {
         {responseType && 'Avg response time'}
         {completeType && 'Avg complete time'}
       </Typography>
-      <Typography
-        gutterBottom
-        sx={{
-          color: '#574B90',
-          fontSize: '34px',
-          fontWeight: 500,
-          lineHeight: '41px',
-        }}
-      >
-        {loading ? (
-          <Skeleton variant="rounded" animation="wave" height={40} />
-        ) : (
-          data || 0
-        )}
-      </Typography>
+      {withArea && data && responseType && (
+        <Typography
+          gutterBottom
+          sx={{
+            color: '#574B90',
+            fontSize: '34px',
+            fontWeight: 500,
+            lineHeight: '41px',
+          }}
+        >
+          {loading ? (
+            <Skeleton variant="rounded" animation="wave" height={40} />
+          ) : (
+            data[filterDateRange]?.avgResponse || 0
+          )}
+        </Typography>
+      )}
+      {withArea && data && completeType && (
+        <Typography
+          gutterBottom
+          sx={{
+            color: '#574B90',
+            fontSize: '34px',
+            fontWeight: 500,
+            lineHeight: '41px',
+          }}
+        >
+          {loading ? (
+            <Skeleton variant="rounded" animation="wave" height={40} />
+          ) : (
+            data[filterDateRange]?.avgComplete || 0
+          )}
+        </Typography>
+      )}
+      {!withArea && (
+        <Typography
+          gutterBottom
+          sx={{
+            color: '#574B90',
+            fontSize: '34px',
+            fontWeight: 500,
+            lineHeight: '41px',
+          }}
+        >
+          {loading ? (
+            <Skeleton variant="rounded" animation="wave" height={40} />
+          ) : (
+            data || 0
+          )}
+        </Typography>
+      )}
       <Typography
         sx={{
           fontSize: '14px',

@@ -1,4 +1,4 @@
-export const fetcher = async (data) =>
+export const fetcher = async (data, timeout = 2200) =>
   new Promise((res) => {
-    setTimeout(() => res(data), 2200);
+    setTimeout(() => res(data), timeout);
   });

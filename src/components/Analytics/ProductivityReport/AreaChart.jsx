@@ -1,13 +1,49 @@
+import { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 
-function AreaChart({ data, color }) {
-  const evaluatedChartData = [['date', 'time'], ...data];
+function AreaChart({ filterDateRange, data, color }) {
+  const [filteredData, setFilteredData] = useState(defaultData());
+  // const evaluatedChartData = [['date', 'time'], ...data];
+  console.log('filter magic word', filterDateRange);
+
+  console.log('data area', data);
+  console.log('area state', filteredData);
+
+  useEffect(() => {
+    if (data) {
+      if (filterDateRange === 'today') {
+        setFilteredData([
+          ...defaultData(),
+          ...data.slice(data.length - 7 - 7 * 0, data.length - 7 * 0),
+        ]);
+      }
+      if (filterDateRange === 'past-week') {
+        setFilteredData([
+          ...defaultData(),
+          ...data.slice(data.length - 7 - 7 * 1, data.length - 7 * 1),
+        ]);
+      }
+      if (filterDateRange === 'past-4-weeks') {
+        setFilteredData([...defaultData(), ...data.slice(0, data.length)]);
+      }
+      if (filterDateRange === 'all') {
+        setFilteredData([...defaultData(), ...data]);
+      }
+    }
+  }, [filterDateRange]);
+
+  function defaultData() {
+    return [
+      ['date', 'time']
+    ];
+  }
+
   return (
     <Chart
       chartType="AreaChart"
       width="100%"
       height="400px"
-      data={evaluatedChartData}
+      data={filteredData}
       options={{
         legend: 'none',
         colors: [color],

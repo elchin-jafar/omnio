@@ -14,7 +14,7 @@ function ProductivityReport() {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      const response = await fetcher(productivityReportData);
+      const response = await fetcher(productivityReportData, 500);
       setData(response);
       setLoading(false);
     }
@@ -25,7 +25,7 @@ function ProductivityReport() {
     setFilterDateRange(data);
   }
 
-  const { avgTimes, chartData } = data;
+  const { avgTimes, chartDataResponse, chartDataResolution } = data;
   return (
     <>
       <AnalyticsHeader
@@ -33,21 +33,35 @@ function ProductivityReport() {
         onChange={handleSelectChange}
       />
       <Box sx={{ display: 'flex', gap: '20px' }}>
-        <AverageTime responseType data="25m 49s" loading={false} />
-        <AverageTime completeType data="3h 41m 12s" loading={false} />
+        <AverageTime
+          filterDateRange={filterDateRange}
+          responseType
+          withArea
+          data={avgTimes}
+          loading={loading}
+        />
+        <AverageTime
+          filterDateRange={filterDateRange}
+          completeType
+          withArea
+          data={avgTimes}
+          loading={loading}
+        />
       </Box>
       <ChartContainer
         title="Avg response time"
-        data={chartData}
+        data={chartDataResponse}
         areaChart
         color="#29B6F6"
+        filterDateRange={filterDateRange}
         loading={loading}
       />
       <ChartContainer
         title="Avg resolution time"
-        data={chartData}
+        data={chartDataResolution}
         areaChart
         color="#66BB6A"
+        filterDateRange={filterDateRange}
         loading={loading}
       />
     </>
