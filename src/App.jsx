@@ -1,9 +1,5 @@
 import Layout from './components/Layout';
-import { sidebarData } from './components/Layout/SidebarData';
 import {
-  Routes,
-  Route,
-  Navigate,
   createBrowserRouter,
   RouterProvider,
   redirect,
@@ -36,10 +32,10 @@ import Login, { loader as loginLoader } from './pages/Login';
 import AnalyticsLayout, {
   loader as analyticsLoader,
 } from './layouts/AnalyticsLayout';
-import Overview from './pages/Analytics/Overview/Overview';
-import ActivityReport from './pages/Analytics/ActivityReport/ActivityReport';
-import MboxReport from './pages/Analytics/MboxReport/MboxReport';
-import ProductivityReport from './pages/Analytics/ProductivityReport/ProductivityReport';
+import Overview from './pages/Analytics/Overview';
+import ActivityReport from './pages/Analytics/ActivityReport';
+import MboxReport from './pages/Analytics/MboxReport';
+import ProductivityReport from './pages/Analytics/ProductivityReport';
 
 function App() {
   const router = createBrowserRouter([

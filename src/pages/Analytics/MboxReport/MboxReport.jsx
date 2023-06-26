@@ -26,7 +26,6 @@ function MboxReport() {
   }
 
   const { showcases, chartData } = data;
-  console.log(chartData);
 
   return (
     <>

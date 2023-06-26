@@ -3,11 +3,6 @@ import { Chart } from 'react-google-charts';
 
 function AreaChart({ filterDateRange, data, color }) {
   const [filteredData, setFilteredData] = useState(defaultData());
-  // const evaluatedChartData = [['date', 'time'], ...data];
-  console.log('filter magic word', filterDateRange);
-
-  console.log('data area', data);
-  console.log('area state', filteredData);
 
   useEffect(() => {
     if (data) {
@@ -33,9 +28,7 @@ function AreaChart({ filterDateRange, data, color }) {
   }, [filterDateRange]);
 
   function defaultData() {
-    return [
-      ['date', 'time']
-    ];
+    return [['date', 'time']];
   }
 
   return (

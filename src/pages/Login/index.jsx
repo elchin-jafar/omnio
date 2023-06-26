@@ -41,7 +41,6 @@ function Login() {
   async function handleLogin(e) {
     e.preventDefault();
     setIsLoading(true);
-    console.log('isRememberChecked', isRememberChecked);
     const response = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -201,6 +200,6 @@ export default Login;
 export const loader = () => {
   const sessionAuth = sessionStorage.getItem('auth');
   const localAuth = localStorage.getItem('auth');
-  if (sessionAuth || localAuth) return redirect('/');
+  if (sessionAuth || localAuth) return redirect('/dashboard');
   return null;
 };

@@ -26,7 +26,6 @@ function UnStackedColumnChart({ filterDateRange, data }) {
       }
     }
   }, [filterDateRange]);
-  console.log('filteredData', filteredData);
 
   function defaultData() {
     return [['date', 'Received', 'Completed']];

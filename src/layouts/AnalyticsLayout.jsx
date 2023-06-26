@@ -12,8 +12,8 @@ const AnalyticsLayout = () => {
 export default AnalyticsLayout;
 
 export const loader = () => {
-  const sesstionAuth = sessionStorage.getItem('auth');
+  const sessionAuth = sessionStorage.getItem('auth');
   const localAuth = localStorage.getItem('auth');
-  if (!sesstionAuth && !localAuth) return redirect('/');
+  if (!sessionAuth && !localAuth) return redirect('/');
   return null;
 };
